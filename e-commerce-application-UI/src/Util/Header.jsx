@@ -1,30 +1,73 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { CgProfile } from "react-icons/cg";
-import { IoIosArrowDown } from "react-icons/io";
-import { CiSearch } from "react-icons/ci";
-import { BsBox } from "react-icons/bs";
-import { GoHeart } from "react-icons/go";
+import { BiSearch, BiUserCircle } from 'react-icons/bi';
+import { IoCartOutline } from 'react-icons/io5';
+import { LuBoxes } from 'react-icons/lu';
+import { HiMiniBars3BottomLeft } from 'react-icons/hi2';
+import { GoHeart } from 'react-icons/go';
 
-const Header = () => {
+ const Headers = () => {
+  const user={
+    userId:123,
+    username:"abc",
+    role:"SELLER",
+    aunthenticated:false,
+    accessExpiration:3600,
+    refershExpiration:1296000
+
+  }
+   
+  const{ username,role,aunthenticated}=user;
   return (
-    <div className='flex item-center justify-around text-slate-950 text-slate-100 py-2  border-b-2 border-slate-1 text-center text-lg'>
-    <Link to={"/"}><img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg" width="160" height="40" title="Flipkart"/></Link>
-    <section className='flex items-center gap-2 bg-slate-200 w-[32rem] rounded-md'><CiSearch /><input className='w-full text-lg bg-slate-200' type="text" placeholder="Search for Products, Brands and More" value="" ></input></section>
-    <Link to={"/login"} className='relative group transition-all'>
-     <p className='flex items-center justify-around  w-24  rounded-md hover:bg-blue-700 hover:text-white'>
-      <CgProfile />Login <IoIosArrowDown className='rotate-180 transition-all hover:rotate-0'/>
-     </p>
-     <div className='flex justify-around absolute top-10 hidden w-60 flex-col gap-1 rounded-md bg-white py=3  shadow-md transition-all group-hover:flex '>
-      <Link to={"/register"} className='flex item-center gap-5 '>  New customer? <p className='text-blue-600 '>Sing Up</p></Link>
-      <Link to={"#"} className='flex  gap-2'><CgProfile />My Profile</Link>
-      <Link to={"#"} className='flex gap-2 '><BsBox />Orders</Link>
-      <Link to={"/wishlist"} className='flex gap-2 '><GoHeart /> Wishlist</Link>
-     </div>
-    </Link>
-    <Link to={"/register"} className='flex items-center gap-2'><img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/Store-9eeae2.svg" alt="Become a Seller" class="_1XmrCc"/>Become a seller</Link>
-    </div>
+    <nav className='bg-white shadow-md text-slate-100 py-2 text-xl'>
+      <div className='w-11/12 flex items-center justify-evenly'>
+        { /* logo and Link block */}
+        <div className='flex justify-center items-center w-3/6'>
+
+          {/* logo */}
+          <Link to={"/"} className='w-60'>
+            <img src='/src/Images/flipkart-logo.svg' alt="" className='w-full'/>
+          </Link>
+
+            {/* Search bar */}
+            <div className='bg-blue-100 w-full rounded-xl mx-10 flex justify-center'>
+              <div className='text-slate-500 flex justify-center items-center w-7 text-2xl m-2 mr-0'><BiSearch/></div>
+              <input type='text' className='p-2 bg-transparent w-full focus:outline-none text-slate-700 placeholder:text-slate-500'
+              placeholder='Search for mpbile,laptops, ...'/>
+            </div>
+        </div>
+
+        {/* Nav Links*/}
+        <div  className='text-slate-600 flex justify-evenly items-center w-2/6'>
+          <Link to={aunthenticated ? "/account" : "/login"}>{aunthenticated ? username
+          :"Login"} </Link>
+          {/* Optional links based on role*/}
+          {(aunthenticated && role === "CUSTOMER")
+          ? <div className='flex justify-center items-center'>
+          <HeaderLink icon={<IoCartOutline/>} linkName={"Cart"} to={"/cart"}/>
+          <HeaderLink icon={<GoHeart/>} linkName={"Wishlist"} to={"/wishlist"}/>
+            </div>
+            :(aunthenticated && role === "SELLER") ?
+            <HeaderLink icon={<LuBoxes/>} linkName={"Orders"} to={"/orders"}/>
+            :(!aunthenticated) &&
+            <HeaderLink icon={<BiUserCircle/>} linkName={"Become a Seller"} to={"/register"}/> 
+          }
+          <Link><HiMiniBars3BottomLeft/></Link>
+        </div>
+        </div>
+        </nav>
   )
 }
 
-export default Header
+export default Headers
+
+export const HeaderLink=({icon,linkName,to})=>
+{
+  return (
+    <Link to={to} className='text-slate-600 flex justify-center items-center'>
+      <div className='mt-1 mr-2'>{icon}</div>
+      <div>{linkName}</div>
+    </Link>
+
+  )
+}
