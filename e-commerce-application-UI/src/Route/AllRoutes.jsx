@@ -16,10 +16,10 @@ const AllRoutes=() =>{
   let user={
     userId:"123",
     username:"abc",
-    role:"SELLER",
+    role:"CUSTOMER",
     authenticated:true,
     accessExpiration: 3600,
-    refreshExpiration: 1296000
+    refershExpiration: 1296000
   }
   const{role,authenticated}=user;
   let routes=[];
