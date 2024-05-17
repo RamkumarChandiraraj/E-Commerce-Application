@@ -1,5 +1,7 @@
 package com.retail.e_com.utility;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 import lombok.Getter;
 
@@ -9,6 +11,12 @@ public class ResponseStructure<T> {
 	private int statusCode;
 	private String message;
 	private T data;
+	private List<T> lists;
+
+	public ResponseStructure<T> setLists(List<T> lists) {
+		this.lists = lists;
+		return this;
+	}
 	public ResponseStructure<T> setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 		return this;
