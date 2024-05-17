@@ -1,13 +1,16 @@
 import React from 'react'
 import Header from './Util/Header'
 import {Outlet} from 'react-router-dom'
-function App() {
+import MyProfile from './Private/Common/MyProfile'
+
+const App = () => {
   return (
+  <div>
+    <Header
+    />
     <div>
-      <div>
-        <Header/>
-       <Outlet/>
-       </div>
+    <Outlet/> 
+    </div>
     </div>
   )
 }
