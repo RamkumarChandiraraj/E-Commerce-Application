@@ -1,6 +1,7 @@
 package com.retail.e_com.responsedto;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.retail.e_com.enums.Category;
 import com.retail.e_com.enums.ProductAvailabilityStatus;
@@ -21,5 +22,6 @@ public class ProductResponse {
 	private int productQuantity;
 	private Category category;
 	private ProductAvailabilityStatus availabilityStatus;
-	private List<ImageResponse> imageResponse;
+	private Optional<String> coverImage;
+	private Optional<List<String>> normalImage;
 }

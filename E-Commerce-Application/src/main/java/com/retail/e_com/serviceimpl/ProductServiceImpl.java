@@ -14,9 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.retail.e_com.controller.ImageController;
+import com.retail.e_com.enums.ImageType;
 import com.retail.e_com.enums.OrderBy;
 import com.retail.e_com.exception.ProductNotFoundByIdException;
 import com.retail.e_com.model.Product;
+import com.retail.e_com.repository.ImageRepository;
 import com.retail.e_com.repository.ProductRepository;
 import com.retail.e_com.requestdto.ProductRequest;
 import com.retail.e_com.requestdto.SearchFilter;
@@ -36,6 +38,7 @@ public class ProductServiceImpl implements ProductService{
 	ResponseStructure<List<ProductResponse>> responseStructure;
 	private ImageController controller;
 	private ProductSpecification productSpecification;
+	
 
 	@Override
 	public ResponseEntity<ResponseStructure<ProductResponse>> addProduct(ProductRequest productRequest) {
@@ -57,6 +60,9 @@ public class ProductServiceImpl implements ProductService{
 				.productQuantity(saveProduct.getProductQuantity())
 				.category(saveProduct.getCategory())
 				.availabilityStatus(saveProduct.getAvailabilityStatus())
+				.coverImage(controller.imageFindByProductId(saveProduct.getProductId(), ImageType.COVER))
+				.normalImage(controller.imagesFindByProductId(saveProduct.getProductId(), ImageType.REGULAR))
+				
 				//				.images(saveProduct)
 				.build();
 	}

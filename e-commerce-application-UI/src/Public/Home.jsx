@@ -21,7 +21,7 @@ console.log(category)
 useEffect(() => {
   const fetchProducts = async () => {
     console.log('ram')
-    const response = await axios.get(`http://localhost:8080/api/ecav1/findProduct?page=${page}&orderBy=${orderBy}&sortBy=${sortBy}`, {
+    const response = await axios.get(`http://localhost:8081/api/fk/pr/findProduct?page=${page}&orderBy=${orderBy}&sortBy=${sortBy}`, {
        // Pass formData as params
        params:searchFilter,
       headers: {
@@ -30,7 +30,7 @@ useEffect(() => {
       withCredentials: true
     });
 
-    console.log(response.data);
+    console.log(response.data.data+"ram");
     setProducts(response.data.data);
     setFilteredProducts(response.data.data);
   };
@@ -62,16 +62,16 @@ useEffect(() => {
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredProducts.map((product) => (
           <div key={product.Id} className="bg-white shadow-md rounded p-4">
-            <img width={350} height={150} src={`http://localhost:8080/api/ecav1/image/${product.coverImage}`} alt={product.productBrand} />
+            <img width={350} height={150} src={`http://localhost:8081/api/ecav1/image/${product.coverImage}`} alt={product.productBrand} />
             <div className="flex justify-between flex-wrap p-2 ">
               {product.normalImage.map((image) => (
                 <img className='hover:cursor-pointer w-100 h-50'
-                  width={100} height={50} src={`http://localhost:8080/api/ecav1/image/${image}`}
+                  width={100} height={50} src={`http://localhost:8081/api/ecav1/image/${image}`}
                   alt={product.productBrand} />
               ))}
             </div>
-            <h2 className="text-xl font-bold mb-2">{product.productBrand}</h2>
-            <p className="text-gray-600 mb-2">{product.productModel}</p>
+            
+            <p className="text-gray-600 mb-2">{product.productName}</p>
             <p className="text-gray-600 mb-2">Price: ${product.productPrice}</p>
             <p className="text-gray-600 mb-2">Description: {product.productDescription}</p>
             <p className="text-gray-600 mb-2">Category: {product.category}</p>
